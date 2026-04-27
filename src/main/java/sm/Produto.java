@@ -24,8 +24,8 @@ public class Produto {
                 return offer;
         }
 
-        static Produto.ProdutoBuilder fromJsonBuilder(JSONObject obj) {
-                Produto.ProdutoBuilder pb = Produto.builder()
+        static ProdutoBuilder fromJsonBuilder(JSONObject obj) {
+                ProdutoBuilder pb = Produto.builder()
                         .nome((String)obj.get("productName"))
                         .id((String)obj.get("productId"))
                         .marca((String)obj.get("brand"));
