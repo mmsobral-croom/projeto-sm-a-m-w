@@ -17,7 +17,7 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
 
     public ItemCesta(String descricao, String tamanho) {
         this.descricao = descricao.toLowerCase();
-        this.tamanho = tamanho;
+        this.tamanho = tamanho != null ? tamanho.toLowerCase() : null;
         this.marcas = new ListaSequencial<>();
     }
 
