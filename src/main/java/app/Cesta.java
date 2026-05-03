@@ -19,4 +19,8 @@ public class Cesta {
             itens.adiciona(item);
         }
     }
+
+    public int comprimento() {
+        return this.itens.comprimento();
+    }
 }

@@ -1,3 +1,5 @@
+import app.Cesta;
+import app.ItemCesta;
 import sm.Giassi;
 import sm.Produto;
 
@@ -15,5 +17,40 @@ public class Main {
         // acho que é de boa pegar o primeiro, provavelmente é o mais popular
         // e pegar o mais popular mais barato é uma estrategia comum e viavel
         //talvez criando métodos como pegaprimeiroprodutoeverificaseédisponivel
+
+
+        /*
+
+        // este é apenas um teste para as classes Cesta e ItemCesta. Pode ser apagado assim que necessário.
+
+        Cesta cesta = new Cesta();
+
+        ItemCesta tapioca = new ItemCesta("tapioca", "1kg");
+        ItemCesta cafe = new ItemCesta("café", "500g");
+
+        cafe.adicionarMarca("Melitta");
+        cafe.adicionarMarca("Três Corações");
+
+        cesta.adicionaItem(tapioca);
+        cesta.adicionaItem(cafe);
+
+        for (int i = 0; i < cesta.comprimento(); i++) {
+            ItemCesta item = cesta.getItens().obtem(i);
+
+            System.out.println("Descrição: " + item.getDescricao());
+
+            if (item.getTamanho() != null) {
+                System.out.println("Tamanho: " + item.getTamanho());
+            }
+
+            if (item.getMarcas().comprimento() != 0) {
+                System.out.print("Marcas: ");
+                for (int j = 0; j < item.getMarcas().comprimento(); j++) {
+                    System.out.print(item.getMarcas().obtem(j) + "; ");
+                }
+            }
+        }
+
+        */
     }
 }
