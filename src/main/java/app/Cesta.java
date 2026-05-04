@@ -1,6 +1,7 @@
 package app;
 
 import esd.ListaSequencial;
+import sm.Supermercado;
 
 public class Cesta {
 
@@ -22,5 +23,9 @@ public class Cesta {
 
     public int comprimento() {
         return this.itens.comprimento();
+    }
+
+    public int precoTotal(Supermercado supermercado) {
+        return 1; //implementar
     }
 }
