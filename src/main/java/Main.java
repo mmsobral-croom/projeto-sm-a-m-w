@@ -1,10 +1,31 @@
 import app.Cesta;
 import app.ItemCesta;
-import sm.Giassi;
-import sm.Produto;
+import sm.*;
 
 public class Main {
     static void main() {
+
+        Cesta cesta = new Cesta();
+
+        cesta.adicionaItem(new ItemCesta("tapioca"));
+        cesta.adicionaItem(new ItemCesta("café", "500g"));
+
+        Supermercado[] supermercados = {new Bistek(), new Fort(), new Giassi()};
+
+        float[] precosSm = new float[supermercados.length];
+
+        for (int i = 0; i < supermercados.length; i++) {
+            precosSm[i] = cesta.precoTotal(supermercados[i]);
+        }
+
+        for (int i = 0; i < supermercados.length; i++) {
+            System.out.println(supermercados[i].getClass().getSimpleName() + ": " + precosSm[i]);
+        }
+
+
+
+
+        /*
 
         // cria um acessador para o Giassi
         Giassi sm = new Giassi();
@@ -18,39 +39,7 @@ public class Main {
         // e pegar o mais popular mais barato é uma estrategia comum e viavel
         //talvez criando métodos como pegaprimeiroprodutoeverificaseédisponivel
 
-
-        /*
-
-        // este é apenas um teste para as classes Cesta e ItemCesta. Pode ser apagado assim que necessário.
-
-        Cesta cesta = new Cesta();
-
-        ItemCesta tapioca = new ItemCesta("tapioca", "1kg");
-        ItemCesta cafe = new ItemCesta("café", "500g");
-
-        cafe.adicionarMarca("Melitta");
-        cafe.adicionarMarca("Três Corações");
-
-        cesta.adicionaItem(tapioca);
-        cesta.adicionaItem(cafe);
-
-        for (int i = 0; i < cesta.comprimento(); i++) {
-            ItemCesta item = cesta.getItens().obtem(i);
-
-            System.out.println("Descrição: " + item.getDescricao());
-
-            if (item.getTamanho() != null) {
-                System.out.println("Tamanho: " + item.getTamanho());
-            }
-
-            if (item.getMarcas().comprimento() != 0) {
-                System.out.print("Marcas: ");
-                for (int j = 0; j < item.getMarcas().comprimento(); j++) {
-                    System.out.print(item.getMarcas().obtem(j) + "; ");
-                }
-            }
-        }
-
         */
+
     }
 }

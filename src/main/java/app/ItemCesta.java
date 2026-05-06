@@ -41,6 +41,8 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
         }
     }
 
+    /*
+
     public float getPrecoDoItem(ItemCesta item, Supermercado supermercado) {
         //pega o preço SÓ do primeiro produto. precisa
         // implementar uma lógica tipo bater marca com marca
@@ -53,5 +55,42 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
             return p.getPreco();
         }
         return 0;
+    }
+
+    */
+
+    public float getPrecoDoItem(Supermercado supermercado) {
+        // itera sobre o "resultado". Para cada produto: verifica se está disponível e o tamanho. Falta verificar as marcas
+        // no final, retorna o produto com menor preço
+        Supermercado.Resultado resultado = supermercado.busca(this.descricao);
+
+        if (resultado == null) {
+            return -1;
+        }
+
+        float menorValor = -1;
+
+        for (Produto p : resultado) {
+            if (p.isDisponivel()) {
+
+                String nome = p.getNome().toLowerCase();
+
+                if (nome.contains(this.descricao)) {
+
+                    boolean tamanhoValido = true;
+
+                    if (this.tamanho != null) {
+                        tamanhoValido = nome.contains(this.tamanho);
+                    }
+
+                    if (tamanhoValido) {
+                        if (menorValor == -1 || p.getPreco() < menorValor) {
+                            menorValor = p.getPreco();
+                        }
+                    }
+                }
+            }
+        }
+        return menorValor;
     }
 }
