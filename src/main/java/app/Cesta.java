@@ -26,6 +26,11 @@ public class Cesta {
     }
 
     public int precoTotal(Supermercado supermercado) {
-        return 1; //implementar
+        float total = 0;
+        for (int i = 0; i < itens.comprimento(); i++) {
+            ItemCesta item = itens.obtem(i);
+            total += item.getPrecoDoItem(item, supermercado);
+        }
+        return (int) total;
     }
 }

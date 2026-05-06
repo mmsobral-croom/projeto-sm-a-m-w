@@ -1,6 +1,7 @@
 package app;
 
 import esd.ListaSequencial;
+import sm.Produto;
 import sm.Supermercado;
 
 public class ItemCesta {    // o objeto instanciado desta classe vai representar um item (produto) que será colocado na cesta
@@ -39,7 +40,18 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
             marcas.adiciona(marca.toLowerCase());
         }
     }
+
     public float getPrecoDoItem(ItemCesta item, Supermercado supermercado) {
-        return 1;//implementar pegando do campo da resposta
+        //pega o preço SÓ do primeiro produto. precisa
+        // implementar uma lógica tipo bater marca com marca
+        // e tamanho com tamanho pra comparar o preço
+        Supermercado.Resultado resultado = supermercado.busca(item.getDescricao());
+        if (resultado == null) {
+            return 0;
+        }
+        for (Produto p : resultado) {
+            return p.getPreco();
+        }
+        return 0;
     }
 }
