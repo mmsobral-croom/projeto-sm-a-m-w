@@ -61,7 +61,7 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
 
     public float getPrecoDoItem(Supermercado supermercado) {
         // itera sobre o "resultado". Para cada produto: verifica se está disponível e o tamanho. Falta verificar as marcas
-        // no final, retorna o produto com menor preço
+        // No final, retorna o produto com menor preço
         Supermercado.Resultado resultado = supermercado.busca(this.descricao);
 
         if (resultado == null) {

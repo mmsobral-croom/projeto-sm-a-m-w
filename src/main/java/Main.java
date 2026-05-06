@@ -1,5 +1,7 @@
 import app.Cesta;
 import app.ItemCesta;
+import app.TotalMercado;
+import esd.ListaSequencial;
 import sm.*;
 
 public class Main {
@@ -7,7 +9,7 @@ public class Main {
 
         Cesta cesta = new Cesta();
 
-        cesta.adicionaItem(new ItemCesta("tapioca"));
+        cesta.adicionaItem(new ItemCesta("tapioca", "1kg"));
         cesta.adicionaItem(new ItemCesta("café", "500g"));
 
         Supermercado[] supermercados = {new Bistek(), new Fort(), new Giassi()};
@@ -18,9 +20,27 @@ public class Main {
             precosSm[i] = cesta.precoTotal(supermercados[i]);
         }
 
+        // cria uma lista sequencial de "TotalMercado" para poder ordenar por preço
+        ListaSequencial<TotalMercado> listaTotal = new ListaSequencial<>();
+
         for (int i = 0; i < supermercados.length; i++) {
-            System.out.println(supermercados[i].getClass().getSimpleName() + ": " + precosSm[i]);
+            listaTotal.adiciona(new TotalMercado(supermercados[i].getClass().getSimpleName(), precosSm[i]));
         }
+
+        listaTotal.ordena();
+
+        for (TotalMercado total : listaTotal) {
+            System.out.println(total.getNome() + ": " + total.getPreco());
+        }
+
+        System.out.println();
+
+        System.out.println("Supermercado com a cesta mais barata: " + listaTotal.obtem(0).getNome());
+
+        //apresenta os nomes dos mercados e o preço de suas cestas ordenados por preço
+        // mas ainda falta apresentar todos os itens da cesta mais barata
+
+
 
 
 
