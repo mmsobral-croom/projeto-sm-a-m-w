@@ -9,8 +9,15 @@ public class Main {
 
         Cesta cesta = new Cesta();
 
+        ItemCesta cafe = new ItemCesta("café", "500g");
+
+        cafe.adicionarMarca("Três Corações");
+        cafe.adicionarMarca("Melitta");
+
+        cesta.adicionaItem(cafe);
+
         cesta.adicionaItem(new ItemCesta("tapioca", "1kg"));
-        cesta.adicionaItem(new ItemCesta("café", "500g"));
+        //cesta.adicionaItem(new ItemCesta("café", "500g"));
 
         Supermercado[] supermercados = {new Bistek(), new Fort(), new Giassi()};
 

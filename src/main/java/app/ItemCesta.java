@@ -52,8 +52,9 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
     }
 
     public Produto getProdutoEscolhido(Supermercado supermercado) {
-        // itera sobre o "resultado". Para cada produto: verifica se está disponível e o tamanho. Falta verificar as marcas
-        // No final, retorna o produto com menor preço
+        // itera sobre o "resultado". Para cada produto: verifica se está disponível, verifica tamanho e a marca.
+        // No final, retorna o produto escolhido (que possui o menor valor);
+
         Supermercado.Resultado resultado = supermercado.busca(this.descricao);
 
         if (resultado == null) {
@@ -67,7 +68,7 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
 
                 String nome = p.getNome().toLowerCase();
 
-                if (nome.contains(this.descricao) && tamanhoValido(nome)) {
+                if (nome.contains(this.descricao) && tamanhoValido(nome) && marcaValida(p)) {
 
                     if (escolhido == null || p.getPreco() < escolhido.getPreco()) {
                         escolhido = p;
@@ -79,10 +80,35 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
     }
 
     private boolean tamanhoValido(String nomeProduto) {
+        // Retorna true se a string "nomeProduto" contém o "tamanho" deste item;
         if (this.tamanho == null) {
             return true;
         }
 
         return nomeProduto.contains(this.tamanho);
+    }
+
+    private boolean marcaValida(Produto produto) {
+        if (this.marcas.comprimento() == 0) {
+            return true;
+        }
+
+        if (produto.getMarca() == null) {
+            return false;
+        }
+
+        // verifica se a marca de produto (parâmetro) é compátivel com alguma marca armazenada
+        // na lista "marcas"
+
+        String marca = produto.getMarca().toLowerCase();
+
+        for (int i = 0; i < marcas.comprimento(); i++) {
+            String marcaProduto = marcas.obtem(i);
+
+            if (marca.contains(marcaProduto)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
