@@ -14,17 +14,15 @@ public class Main {
 
         Supermercado[] supermercados = {new Bistek(), new Fort(), new Giassi()};
 
-        float[] precosSm = new float[supermercados.length];
-
-        for (int i = 0; i < supermercados.length; i++) {
-            precosSm[i] = cesta.precoTotal(supermercados[i]);
-        }
-
         // cria uma lista sequencial de "TotalMercado" para poder ordenar por preço
         ListaSequencial<TotalMercado> listaTotal = new ListaSequencial<>();
 
-        for (int i = 0; i < supermercados.length; i++) {
-            listaTotal.adiciona(new TotalMercado(supermercados[i].getClass().getSimpleName(), precosSm[i]));
+        for (Supermercado sm : supermercados) {
+            float preco = cesta.precoTotal(sm);
+            // pula mercados que não têm todos os itens (-1) para não aparecerem como mais barato
+            if (preco != -1) {
+                listaTotal.adiciona(new TotalMercado(sm.getClass().getSimpleName(), preco, sm));
+            }
         }
 
         listaTotal.ordena();
@@ -35,31 +33,17 @@ public class Main {
 
         System.out.println();
 
-        System.out.println("Supermercado com a cesta mais barata: " + listaTotal.obtem(0).getNome());
-
-        //apresenta os nomes dos mercados e o preço de suas cestas ordenados por preço
-        // mas ainda falta apresentar todos os itens da cesta mais barata
-
-
-
-
-
-
-        /*
-
-        // cria um acessador para o Giassi
-        Giassi sm = new Giassi();
-        for (Produto p : sm.busca("tapioca")) {
-            IO.println(p);
+        if (listaTotal.esta_vazia()) {
+            System.out.println("Nenhum supermercado tem todos os itens da cesta.");
+            return;
         }
-        //agora que pegamos 1 de todos os produtos tapioca, devemos repetir isso para pegar todos os produtos da lista
-        // talvez seja uma boa comparararmos o primeiro EAN com os outros e verificar se disponivel = true
-        // ai teremos uma verficação qual preço é maior entre EAN's disponiveis
-        // acho que é de boa pegar o primeiro, provavelmente é o mais popular
-        // e pegar o mais popular mais barato é uma estrategia comum e viavel
-        //talvez criando métodos como pegaprimeiroprodutoeverificaseédisponivel
 
-        */
-
+        TotalMercado maisBarato = listaTotal.obtem(0);
+        System.out.println("Supermercado com a cesta mais barata: " + maisBarato.getNome());
+        System.out.println("Itens da cesta:");
+        for (ItemCesta item : cesta.getItens()) {
+            Produto p = item.getProdutoEscolhido(maisBarato.getSupermercado());
+            System.out.println("- " + p.getNome() + ": " + p.getPreco());
+        }
     }
 }

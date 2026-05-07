@@ -60,15 +60,25 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
     */
 
     public float getPrecoDoItem(Supermercado supermercado) {
+        Produto escolhido = getProdutoEscolhido(supermercado);
+
+        if (escolhido == null) {
+            return -1;
+        }
+
+        return escolhido.getPreco();
+    }
+
+    public Produto getProdutoEscolhido(Supermercado supermercado) {
         // itera sobre o "resultado". Para cada produto: verifica se está disponível e o tamanho. Falta verificar as marcas
         // No final, retorna o produto com menor preço
         Supermercado.Resultado resultado = supermercado.busca(this.descricao);
 
         if (resultado == null) {
-            return -1;
+            return null;
         }
 
-        float menorValor = -1;
+        Produto escolhido = null;
 
         for (Produto p : resultado) {
             if (p.isDisponivel()) {
@@ -84,13 +94,13 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
                     }
 
                     if (tamanhoValido) {
-                        if (menorValor == -1 || p.getPreco() < menorValor) {
-                            menorValor = p.getPreco();
+                        if (escolhido == null || p.getPreco() < escolhido.getPreco()) {
+                            escolhido = p;
                         }
                     }
                 }
             }
         }
-        return menorValor;
+        return escolhido;
     }
 }
