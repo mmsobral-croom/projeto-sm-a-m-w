@@ -15,9 +15,7 @@ public class Main {
         cafe.adicionarMarca("Melitta");
 
         cesta.adicionaItem(cafe);
-
         cesta.adicionaItem(new ItemCesta("tapioca", "1kg"));
-        //cesta.adicionaItem(new ItemCesta("café", "500g"));
 
         Supermercado[] supermercados = {new Bistek(), new Fort(), new Giassi()};
 
@@ -35,7 +33,7 @@ public class Main {
         listaTotal.ordena();
 
         for (TotalMercado total : listaTotal) {
-            System.out.println(total.getNome() + ": " + total.getPreco());
+            System.out.println(total.getNome() + ": R$ " + total.getPreco());
         }
 
         System.out.println();
