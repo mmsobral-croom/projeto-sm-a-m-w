@@ -48,7 +48,7 @@ public class Main {
         System.out.println("Itens da cesta:");
         for (ItemCesta item : cesta.getItens()) {
             Produto p = item.getProdutoEscolhido(maisBarato.getSupermercado());
-            System.out.println("- " + p.getNome() + ": " + p.getPreco());
+            System.out.println("- " + p.getNome() + ": R$ " + p.getPreco());
         }
     }
 }

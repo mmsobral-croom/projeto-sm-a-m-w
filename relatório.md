@@ -1,33 +1,116 @@
-Projeto 1 - Melhor Preço
-Disciplina: Estrutura de Dados
-Integrantes da equipe: Alexandre Villela, Mônica Cancellier, Willian Santos
-Descrição geral:
+# Projeto 1: Melhor Preço
+
+### Disciplina: Estrutura de Dados
+
+### Integrantes da equipe: Alexandre Villela, Mônica Cancellier, Willian Santos
+
+<hr>
+
+### Descrição Geral
 
 O programa foi desenvolvido em um projeto Gradle, utilizando uma das estruturas de
-dados implementadas em aula.
-Estrutura do projeto:
-Utilizando orientação a objetos, o projeto foi dividido em classes, cada uma com
-responsabilidade específica.
+dados implementadas em sala de aula.
 
-Classe Main:
-- cria uma cesta de compras
-- adiciona os itens na cesta
-- instancia os buscadores dos supermercados cadastrados
-- obtém o nome do supermercado e o preço total de sua cesta
-- ordena os resultados por preço
-- exibe as informações
+O objetivo do programa é comparar os preços de produtos entre diferentes
+supermercados, identificando qual deles oferece o menor preço total para uma cesta
+de compras definida pelo usuário.
+
+Os supermercados cadastrados são:
+
+- Bistek
+- Fort Atacadista
+- Giassi
+
+O programa realiza buscas de produtos nos supermercados disponibilizados pelo professor
+e calcula o valor total da cesta em cada mercado.
+
+### Estrutura do Projeto
+
+Utilizando orientação a objetos, o projeto foi dividido em classes, cada uma com
+responsabilidades específicas.
+
+**Classe Main:**
+
+A classe Main é responsável por:
+
+- criar uma cesta de compras;
+- adicionar os itens na cesta;
+- iniciar os buscadores dos supermercados cadastrados;
+- obter o nome dos supermercados e o preço total de cada cesta;
+- ordenar os resultados por preço;
+- exibir as informações.
   
-  Classe Cesta:
-  Representa a cesta de compras do usuário.
-  Possui:
-- uma lista de itens da cesta
-- cálculo do preço total da cesta em um supermercado
+**Classe Cesta:**
+
+Esta classe representa a cesta de compras do usuário. Ela possui:
+
+- uma lista de itens da cesta;
+- método para adicionar um novo item na cesta;
+- cálculo do preço total da cesta em um supermercado.
+
+> A classe Cesta utiliza uma Lista Sequencial para armazenar os itens.
   
-  Classe ItemCesta:
-  A classe ItemCesta representa um item que o usuário deseja
-- verifica se um produto atende aos critérios definidos
-- encontra um produto que seja válido e com o menor valor
+**Classe ItemCesta:**
+
+A classe ItemCesta representa um item que o usuário adicionou na cesta para fazer
+a pesquisa de preço. É responsável por:
+
+- verificar se um produto atende aos critérios definidos;
+- encontrar um produto válido e com o menor preço.
   
-  Classe TotalMercado:
-- armazena o nome do supermercado e preço total de sua cesta
-  Esta classe implementa Comparable para permitir a ordenação por preço.
+**Classe TotalMercado:**
+
+- armazena o nome do supermercado e preço total da cesta.
+
+> Esta classe implementa a interface Comparable para permitir a ordenação por preço.
+
+## Relacionamento entre as Classes
+
+A relação principal entre as classes ocorre da seguinte forma:
+
+- **Main** cria uma **Cesta**;
+- **Cesta** armazena vários **ItemCesta**;
+- **ItemCesta** consulta os objetos da classe **Supermercado**;
+- os resultados são armazenados em **TotalMercado**.
+
+## Estrutura de Dados Utilizadas
+
+### Lista Sequencial
+
+A principal estrutura de dados utilizada no desenvolvimento do projeto foi a Lista Sequencial.
+
+Esta estrutura foi utilizada para:
+
+- armazenar os itens da cesta;
+- armazenar as marcas de produtos;
+- armazenar os resultados dos supermercados.
+
+A Lista Sequencial foi escolhida por possuir:
+
+- acesso rápido por índice;
+- método para ordenar que utiliza o algorimo merge sort.
+
+<hr>
+
+## Manual de Utilização
+
+Requisitos:
+
+- Java JDK 25;
+- Gradle.
+
+Execução pelo Intellij:
+
+- Abrir o projeto;
+- Carregar o projeto Gradle;
+- Executar a classe Main;
+
+## Demonstração de Uso
+
+Cria uma cesta e adiciona alguns produtos:
+
+<img src="/img/exemplo-parte-1.png">
+
+Saída esperada:
+
+<img src="/img/exemplo-parte-2.png">
