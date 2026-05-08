@@ -4,7 +4,7 @@ import esd.ListaSequencial;
 import sm.Produto;
 import sm.Supermercado;
 
-public class ItemCesta {    // o objeto instanciado desta classe vai representar um item (produto) que será colocado na cesta
+public class ItemCesta {
 
     private String descricao;
     private String tamanho;
@@ -12,9 +12,7 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
     private ListaSequencial<String> marcas;     // lista para selecionar mais de uma marca na busca de um produto
 
     public ItemCesta(String descricao) {
-        this.descricao = descricao.toLowerCase();   // toLowerCase() para aceitar letras maiúsculas ou minúsculas
-        this.tamanho = null;
-        this.marcas = new ListaSequencial<>();
+        this(descricao, null);
     }
 
     public ItemCesta(String descricao, String tamanho) {
@@ -51,10 +49,9 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
         return escolhido.getPreco();
     }
 
+    // busca produtos no supermercado e devolve o mais barato que combine com este item
+    // (descrição, tamanho e marca). Devolve null se nenhum produto combinar.
     public Produto getProdutoEscolhido(Supermercado supermercado) {
-        // itera sobre o "resultado". Para cada produto: verifica se está disponível, verifica tamanho e a marca.
-        // No final, retorna o produto escolhido (que possui o menor valor);
-
         Supermercado.Resultado resultado = supermercado.busca(this.descricao);
 
         if (resultado == null) {
@@ -64,23 +61,28 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
         Produto escolhido = null;
 
         for (Produto p : resultado) {
-            if (p.isDisponivel()) {
-
-                String nome = p.getNome().toLowerCase();
-
-                if (nome.contains(this.descricao) && tamanhoValido(nome) && marcaValida(p)) {
-
-                    if (escolhido == null || p.getPreco() < escolhido.getPreco()) {
-                        escolhido = p;
-                    }
+            if (produtoCombina(p)) {
+                if (escolhido == null || p.getPreco() < escolhido.getPreco()) {
+                    escolhido = p;
                 }
             }
         }
+
         return escolhido;
     }
 
+    // produto combina se está disponível, o nome contém a descrição,
+    // o tamanho confere e a marca está entre as aceitas.
+    private boolean produtoCombina(Produto p) {
+        if (!p.isDisponivel()) {
+            return false;
+        }
+
+        String nome = p.getNome().toLowerCase();
+        return nome.contains(this.descricao) && tamanhoValido(nome) && marcaValida(p);
+    }
+
     private boolean tamanhoValido(String nomeProduto) {
-        // Retorna true se a string "nomeProduto" contém o "tamanho" deste item;
         if (this.tamanho == null) {
             return true;
         }
@@ -88,6 +90,8 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
         return nomeProduto.contains(this.tamanho);
     }
 
+    // se nenhuma marca foi exigida, qualquer marca passa.
+    // caso contrário, a marca do produto deve casar com alguma da lista de marcas aceitas.
     private boolean marcaValida(Produto produto) {
         if (this.marcas.comprimento() == 0) {
             return true;
@@ -97,18 +101,15 @@ public class ItemCesta {    // o objeto instanciado desta classe vai representar
             return false;
         }
 
-        // verifica se a marca de produto (parâmetro) é compátivel com alguma marca armazenada
-        // na lista "marcas"
-
-        String marca = produto.getMarca().toLowerCase();
+        String marcaProduto = produto.getMarca().toLowerCase();
 
         for (int i = 0; i < marcas.comprimento(); i++) {
-            String marcaProduto = marcas.obtem(i);
-
-            if (marca.contains(marcaProduto)) {
+            String marcaAceita = marcas.obtem(i);
+            if (marcaProduto.contains(marcaAceita)) {
                 return true;
             }
         }
+
         return false;
     }
 }
