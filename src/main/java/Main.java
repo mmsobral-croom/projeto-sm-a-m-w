@@ -7,15 +7,12 @@ import sm.*;
 public class Main {
     static void main() {
 
-        Cesta cesta = new Cesta();
+        Cesta cesta = Cesta.montaCesta();
 
-        ItemCesta cafe = new ItemCesta("café", "500g");
-
-        cafe.adicionarMarca("Três Corações");
-        cafe.adicionarMarca("Melitta");
-
-        cesta.adicionaItem(cafe);
-        cesta.adicionaItem(new ItemCesta("tapioca", "1kg"));
+        if (cesta.comprimento() == 0) {
+            System.out.println("Cesta vazia. Encerrando.");
+            return;
+        }
 
         Supermercado[] supermercados = {new Bistek(), new Fort(), new Giassi()};
 
