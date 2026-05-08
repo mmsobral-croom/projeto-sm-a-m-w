@@ -32,8 +32,7 @@ responsabilidades específicas.
 **Classe Main:**
 
 A classe Main é responsável por:
-
-- criar uma cesta de compras;
+- receber a compra do usuário via input
 - adicionar os itens na cesta;
 - iniciar os buscadores dos supermercados cadastrados;
 - obter o nome dos supermercados e o preço total de cada cesta;
@@ -43,7 +42,7 @@ A classe Main é responsável por:
 **Classe Cesta:**
 
 Esta classe representa a cesta de compras do usuário. Ela possui:
-
+- método que monta a cesta de compras;
 - uma lista de itens da cesta;
 - método para adicionar um novo item na cesta;
 - cálculo do preço total da cesta em um supermercado.
