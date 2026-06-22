@@ -1,9 +1,15 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'proj1'
 version = '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'Main'
+    applicationDefaultJvmArgs = ['--enable-preview']
+}
 
 repositories {
     mavenCentral()
@@ -20,6 +26,14 @@ dependencies {
 
     testCompileOnly("org.projectlombok:lombok:1.18.46")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += ['--enable-preview']
+}
+
+tasks.withType(Test).configureEach {
+    jvmArgs += '--enable-preview'
 }
 
 test {
