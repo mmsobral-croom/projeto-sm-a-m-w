@@ -11,6 +11,8 @@ public class ItemCesta {
 
     private ListaSequencial<String> marcas;     // lista para selecionar mais de uma marca na busca de um produto
 
+    private static CacheSupermercado cache;
+
     public ItemCesta(String descricao) {
         this(descricao, null);
     }
@@ -19,6 +21,12 @@ public class ItemCesta {
         this.descricao = descricao.toLowerCase();
         this.tamanho = tamanho != null ? tamanho.toLowerCase() : null;
         this.marcas = new ListaSequencial<>();
+    }
+
+    // recebe a cache carregada pela classe Main e a disponibiliza para todos os
+    // objetos da classe ItemCesta durante a execução do programa
+    public static void setCache(CacheSupermercado novoCache) {
+        cache = novoCache;
     }
 
     public String getDescricao() {
@@ -52,18 +60,68 @@ public class ItemCesta {
     // busca produtos no supermercado e devolve o mais barato que combine com este item
     // (descrição, tamanho e marca). Devolve null se nenhum produto combinar.
     public Produto getProdutoEscolhido(Supermercado supermercado) {
-        Supermercado.Resultado resultado = supermercado.busca(this.descricao);
 
-        if (resultado == null) {
-            return null;
+        // cria uma chave para o supermercado e a descricao, neste formato: supermercado:descricao.
+        // exemplo: fort:café
+        String chave = supermercado.getClass().getSimpleName().toLowerCase() +
+                ":" + this.descricao.toLowerCase();
+
+        // lista para armazenar os produtos obtidos da cache ou da API
+        ListaSequencial<Produto> produtos = new ListaSequencial<>();
+
+        // verifica cache para tentar obter os produtos dela
+        if (cache != null && cache.contemBusca(chave)) {
+
+            System.out.println("buscando na cache"); // teste para verificar se realiza a busca na cache
+
+            // obtem os produtos da cache
+            ListaSequencial<ProdutoCache> produtosCache = cache.obtemBusca(chave);
+
+            ListaSequencial<String> ids = new ListaSequencial<>();
+
+            // obtém os ids dos produtos armazenados na cache e adiciona na lista ids
+            for (ProdutoCache produto : produtosCache) {
+
+                ids.adiciona(produto.getId());
+            }
+
+            produtos = supermercado.obtem(ids);
+
+        } else {
+
+            System.out.println("buscando na API"); // testa se busca na api
+
+            // consulta a API, pois não encontrou a busca na cache
+            Supermercado.Resultado resultado = supermercado.busca(this.descricao);
+
+            if (resultado == null) {
+                return null;
+            }
+
+            ListaSequencial<ProdutoCache> listaCache = new ListaSequencial<>();
+
+            for (Produto produto : resultado) {
+
+                produtos.adiciona(produto);
+
+                // transforma Produto em ProdutoCache e adiciona na lista listaCache
+                listaCache.adiciona(ProdutoCache.fromProduto(produto));
+            }
+            // salva a busca na cache
+            if (cache != null) {
+                cache.adicionaBusca(chave, listaCache);
+            }
         }
 
         Produto escolhido = null;
 
-        for (Produto p : resultado) {
-            if (produtoCombina(p)) {
-                if (escolhido == null || p.getPreco() < escolhido.getPreco()) {
-                    escolhido = p;
+        // escolhe o produto válido, com o menor preço
+        for (Produto produto : produtos) {
+            if (produtoCombina(produto)) {
+
+                if (escolhido == null || produto.getPreco() < escolhido.getPreco()) {
+
+                    escolhido = produto;
                 }
             }
         }
