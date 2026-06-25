@@ -153,14 +153,16 @@ Uma outra alternativa para executar o programa é utilizar este comando no termi
 ./gradlew run
 ```
 
-
-
 ## Demonstração de Uso
 
-Cria uma cesta e adiciona alguns produtos:
+Adiciona alguns produtos na cesta:
 
 <img src="/img/exemplo-parte-1.png">
 
 Saída esperada:
 
 <img src="/img/exemplo-parte-2.png">
+
+O arquivo cache.txt é gerado ou atualizado na raiz do projeto Gradle:
+
+<img src="/img/exemplo-parte-3.png">
