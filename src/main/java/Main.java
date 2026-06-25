@@ -6,9 +6,6 @@ public class Main {
 
     static void main() {
 
-        // teste de tempo de execução - inicio
-        long inicio = System.currentTimeMillis();
-
         CacheSupermercado cache = new CacheSupermercado(CachePersistencia.carregar("cache.txt"));
 
         ItemCesta.setCache(cache);
@@ -36,10 +33,6 @@ public class Main {
         mostraDetalheCestaMaisBarata(cesta, ranking.obtem(0));
 
         CachePersistencia.salvar("cache.txt", cache.getCacheBusca());
-
-        // teste de tempo de execução - fim
-        long fim = System.currentTimeMillis();
-        System.out.println("Tempo: " + ((fim - inicio) / 1000) + " s");
     }
 
     // calcula o preço total da cesta em cada supermercado e devolve a lista ordenada
