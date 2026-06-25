@@ -52,8 +52,11 @@ public class Main {
     }
 
     static void mostraRanking(ListaSequencial<TotalMercado> ranking) {
+        System.out.println("-------------------------");
+        System.out.println("Ranking de Supermercados:");
+        int contador = 1;
         for (TotalMercado total : ranking) {
-            System.out.println(total.getNome() + ": R$ " + total.getPreco());
+            System.out.println(contador++ + ". " + total.getNome() + ": R$ " + total.getPreco());
         }
         System.out.println();
     }
